@@ -1,10 +1,13 @@
 <mat-card appearance="outlined">
   <mat-card-header>
     <mat-card-title> Choose Your Path of Entry</mat-card-title>
-    <mat-card-subtitle>Herding group</mat-card-subtitle>
   </mat-card-header>
   <mat-card-actions>
-    <button matButton>Learn More</button>
+    @if(!(isLoggedIn$ | async)){
+    <button matButton (click)="login()">Login</button>
+    } @else {
+    <button matButton (click)="logout()">Logout</button>
+    }
   </mat-card-actions>
 </mat-card>
 <br />

@@ -1,6 +1,10 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import {
+  ApplicationConfig,
+  provideBrowserGlobalErrorListeners,
+  provideZonelessChangeDetection,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
-
+import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { authConfig } from './auth/auth.config';
@@ -10,6 +14,9 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
-    provideRouter(routes), provideClientHydration(withEventReplay()), provideAuth(authConfig)
-  ]
+    provideRouter(routes),
+    provideHttpClient(withInterceptorsFromDi(), withFetch()),
+    provideClientHydration(withEventReplay()),
+    provideAuth(authConfig),
+  ],
 };
