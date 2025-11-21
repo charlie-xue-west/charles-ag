@@ -9,11 +9,11 @@ import { map, distinctUntilChanged } from 'rxjs/operators';
 export class AuthService {
   private oidc = inject(OidcSecurityService);
 
-  login() {
+  login(): void {
     this.oidc.authorize();
   }
 
-  logout() {
+  logout(): void {
     console.log('Logging out user');
     this.oidc.logoff();
   }
@@ -28,4 +28,9 @@ export class AuthService {
     map((s) => s.isAuthenticated),
     distinctUntilChanged()
   );
+
+  getAccessToken(): Observable<string> {
+    const token = this.oidc.getAccessToken();
+    return token;
+  }
 }
